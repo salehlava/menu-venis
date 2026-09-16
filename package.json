@@ -1,0 +1,15 @@
+{
+  "name": "venice-menu",
+  "version": "2.0.0",
+  "private": true,
+  "description": "Bilingual (Persian/English) cafe menu with admin panel and customer club",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "node server/index.js",
+    "dev": "node --watch server/index.js",
+    "set-admin": "node scripts/set-admin.js"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

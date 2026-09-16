@@ -1,0 +1,9 @@
+# Live data: admin password hash, customers, SMS keys, menu edits
+data/
+node_modules/
+.env
+*.log
+
+# Local test start buttons (only for this computer)
+start-dev.bat
+.vscode/

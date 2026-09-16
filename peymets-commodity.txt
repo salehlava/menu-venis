@@ -1,0 +1,107 @@
+Hot Bar:
+
+Espresso 50/50 120
+Espresso 70/30 100
+Americano 140
+Latte 180
+Frappacino 180
+Mocha 200
+Certado 130
+Macchiato 180
+Masala Espresso 160
+Romano Presso 140
+Caramel Macchiato 200
+
+Tea and Herbal Tea
+
+Saffron Tea 90
+Demi Tea 50
+Caramel Tea 80
+Cinnamon Tea 50
+Krak Tea 130
+Ginger Tea 130
+Saffron Pistachio Milk Tea 150
+Masala Tea 150
+Green Tea 90
+Chamomile 90
+Lemon 90
+Garden Tongue 90
+Fruit Tea 90
+Herbal 90
+Venice Special 150
+
+Cappuccino
+
+Capo Classic
+Cappuccino180
+Capo Nutella220
+Capo Coconut200
+Capo Hazelnut200
+Capo Gulf180
+Hot Chocolate180
+White Chocolate 180
+White Chocolate Fruity 180
+Pink Chocolate 180
+
+Coffee-based cold bar
+
+Iced Americano 140
+Iced Mocha 200
+Iced Latte 180
+Iced Chocolate 180
+Iced Masala 160
+Iced Affogato 230
+Iced Orange Americano 230
+
+Shake
+
+Vanilla Shake300
+Chocolate Shake320
+Lotus Shake330
+Peanut Shake350
+Nutella Shake330
+Chocolate Banana Shake350
+Protein Shake400
+Strawberry Shake330
+
+Shake
+
+Vanilla Shake300
+Chocolate Shake320
+Lotus Shake330
+Peanut Shake350
+Nutella Shake330
+Chocolate Banana Shake350
+Protein Shake400
+Strawberry Shake330
+
+Smoothie
+
+Mango Orange400
+Strawberry400
+Talebi350
+Watermelon Mint350
+Citrus 450
+Raspberry400
+Sour Smoothie480
+
+Cake
+
+Double Chocolate
+Tiramisu
+Roulette
+Cake of the Day
+
+Snacks
+Turkey Bacon Sandwich 440
+Beef Bacon Sandwich 480
+Chicken Bacon Sandwich 400
+Tomato Cucumber Simit 280
+Cheese and Vegetable Simit 280
+
+Sun mix 400
+Red smoothie 400
+Gold melon 350
+Red fresh350
+Sitraious 450
+Velvet berry 400
