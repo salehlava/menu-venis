@@ -17,7 +17,7 @@ const path = require("node:path");
 const ROOT = path.resolve(__dirname, "..");
 const DOCS = path.join(ROOT, "docs");
 const SITE = path.join(ROOT, ".site");
-const REMOTE = process.env.SITE_REMOTE || "https://github.com/salehlava/venezia.git";
+const REMOTE = process.env.SITE_REMOTE || "https://github.com/salehlava/menu-venezia.git";
 
 const git = (args, cwd = SITE) => execFileSync("git", args, { cwd, stdio: "pipe" }).toString().trim();
 
@@ -45,7 +45,7 @@ function run() {
   fs.cpSync(DOCS, SITE, { recursive: true });
   fs.writeFileSync(
     path.join(SITE, "README.md"),
-    "# VENEZIA Café — menu\n\nThis repository holds only the published menu page.\n\n**Open the menu:** https://salehlava.github.io/venezia/\n"
+    "# VENEZIA Café — menu\n\nThis repository holds only the published menu page.\n\n**Open the menu:** https://salehlava.github.io/menu-venezia/\n"
   );
 
   // 4. Commit and push
@@ -58,7 +58,7 @@ function run() {
   git(["commit", "-m", `Update menu — ${new Date().toISOString().slice(0, 16).replace("T", " ")}`]);
   git(["push", "-u", "origin", "main"]);
   console.log("\n✓ Published. The public menu updates in about a minute:");
-  console.log("  https://salehlava.github.io/venezia/");
+  console.log("  https://salehlava.github.io/menu-venezia/");
 }
 
 try {
