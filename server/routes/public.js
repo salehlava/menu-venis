@@ -27,7 +27,7 @@ module.exports = function publicRoutes(router) {
       cafe: menu.cafe,
       categories,
       theme: { brand: theme.brand },
-      club: { enabled: club.enabled, title: club.title, text: club.text },
+      club: { enabled: club.enabled, title: club.title, text: club.text, mode: "server" },
     };
     sendDynamic(ctx, `window.MENU = ${JSON.stringify(payload).replace(/</g, "\\u003c")};\n`, "text/javascript; charset=utf-8");
   });

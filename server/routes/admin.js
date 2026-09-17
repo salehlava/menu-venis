@@ -147,6 +147,10 @@ module.exports = function adminRoutes(router) {
       title: i18n(body.title, "title", { max: 60, required: true }),
       text: i18n(body.text, "text", { max: 240 }),
       welcomeSms: { enabled: w.enabled === true, text: str(w.text, "welcomeSms.text", { max: 500 }) },
+      contact: {
+        whatsapp: str((body.contact || {}).whatsapp, "contact.whatsapp", { max: 20, pattern: /^[+\d\s()\-۰-۹]+$/ }),
+        sms: str((body.contact || {}).sms, "contact.sms", { max: 20, pattern: /^[+\d\s()\-۰-۹]+$/ }),
+      },
     });
   });
 

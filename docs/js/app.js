@@ -44,6 +44,17 @@
       errConsent: "Please accept receiving SMS messages.",
       errBusy: "Too many attempts. Please try again later.",
       errGeneric: "Something went wrong. Please try again.",
+      clubSendTitle: "One last step",
+      clubSendText: "Send this message to the café and your membership is done.",
+      sendWhatsapp: "Send on WhatsApp",
+      sendSms: "Send by SMS",
+      copyText: "Copy the text",
+      copied: "Text copied.",
+      editAgain: "Change my details",
+      msgJoin: "Customer club sign-up —",
+      msgName: "Name",
+      msgPhone: "Mobile",
+      msgBirthday: "Birthday",
     },
     fa: {
       menu: "منو",
@@ -76,6 +87,17 @@
       errConsent: "لطفاً دریافت پیامک را تأیید کنید.",
       errBusy: "تعداد درخواست‌ها زیاد است. کمی بعد دوباره تلاش کنید.",
       errGeneric: "مشکلی پیش آمد. دوباره تلاش کنید.",
+      clubSendTitle: "یک قدم مانده",
+      clubSendText: "پیام زیر را برای کافه بفرستید تا عضویت شما ثبت شود.",
+      sendWhatsapp: "ارسال با واتساپ",
+      sendSms: "ارسال با پیامک",
+      copyText: "کپی کردن متن",
+      copied: "متن کپی شد.",
+      editAgain: "ویرایش اطلاعات",
+      msgJoin: "عضویت در باشگاه مشتریان",
+      msgName: "نام",
+      msgPhone: "موبایل",
+      msgBirthday: "تولد",
     },
   };
 
@@ -130,6 +152,12 @@
     clubConsent: $("#clubConsent"),
     clubSubmit: $("#clubSubmit"),
     clubMsg: $("#clubMsg"),
+    clubSend: $("#clubSend"),
+    clubMessage: $("#clubMessage"),
+    clubWhatsapp: $("#clubWhatsapp"),
+    clubSmsLink: $("#clubSmsLink"),
+    clubCopy: $("#clubCopy"),
+    clubBack: $("#clubBack"),
   };
 
   /* ---------- State ---------- */
@@ -261,6 +289,12 @@
       optional: ui().optional,
       consent: ui().consent,
       join: ui().join,
+      clubSendTitle: ui().clubSendTitle,
+      clubSendText: ui().clubSendText,
+      sendWhatsapp: ui().sendWhatsapp,
+      sendSms: ui().sendSms,
+      copyText: ui().copyText,
+      editAgain: ui().editAgain,
     };
     document.querySelectorAll("[data-i18n]").forEach((el) => {
       el.textContent = text[el.dataset.i18n] || "";
@@ -322,6 +356,40 @@
     els.clubMsg.className = `club__msg${type ? ` is-${type}` : ""}`;
   }
 
+  /** Published menu: no server, so the visitor sends the details to the café. */
+  function showSendStep(data) {
+    const months = ui().months;
+    const lines = [
+      `${ui().msgJoin} ${t(cafe.name)}`,
+      `${ui().msgName}: ${data.name}`,
+      `${ui().msgPhone}: ${data.phone}`,
+    ];
+    if (data.day && data.month) lines.push(`${ui().msgBirthday}: ${formatNumber(data.day)} ${months[data.month - 1]}`);
+    const text = lines.join("\n");
+
+    els.clubMessage.textContent = text;
+    const encoded = encodeURIComponent(text);
+
+    const international = (number) => {
+      const digits = String(number).replace(/[^\d+]/g, "");
+      if (digits.startsWith("+")) return digits.slice(1);
+      if (digits.startsWith("00")) return digits.slice(2);
+      if (digits.startsWith("0")) return "98" + digits.slice(1);
+      return digits;
+    };
+
+    els.clubWhatsapp.hidden = !club.whatsapp;
+    if (club.whatsapp) els.clubWhatsapp.href = `https://wa.me/${international(club.whatsapp)}?text=${encoded}`;
+
+    els.clubSmsLink.hidden = !club.sms;
+    if (club.sms) els.clubSmsLink.href = `sms:${String(club.sms).replace(/\s/g, "")}?body=${encoded}`;
+
+    setClubMessage("");
+    els.clubForm.hidden = true;
+    els.clubSend.hidden = false;
+    els.clubSend.scrollIntoView({ block: "nearest", behavior: reduceMotion ? "auto" : "smooth" });
+  }
+
   async function submitClub(e) {
     e.preventDefault();
     const name = els.clubName.value.trim();
@@ -341,6 +409,10 @@
       return setClubMessage(ui().errPhone, "error");
     }
     if (!els.clubConsent.checked) return setClubMessage(ui().errConsent, "error");
+
+    if (club.mode === "message") {
+      return showSendStep({ name, phone, day: Number(els.clubDay.value), month: Number(els.clubMonth.value) });
+    }
 
     const birthday =
       els.clubDay.value && els.clubMonth.value
@@ -567,6 +639,27 @@
   window.addEventListener("resize", updateSpy);
 
   els.clubForm.addEventListener("submit", submitClub);
+
+  els.clubBack.addEventListener("click", () => {
+    els.clubSend.hidden = true;
+    els.clubForm.hidden = false;
+    els.clubName.focus();
+  });
+
+  els.clubCopy.addEventListener("click", async () => {
+    try {
+      await navigator.clipboard.writeText(els.clubMessage.textContent);
+      els.clubCopy.querySelector("span").textContent = ui().copied;
+      setTimeout(() => (els.clubCopy.querySelector("span").textContent = ui().copyText), 2000);
+    } catch (_) {
+      // Clipboard blocked: let the visitor select the text themselves.
+      const range = document.createRange();
+      range.selectNodeContents(els.clubMessage);
+      const selection = window.getSelection();
+      selection.removeAllRanges();
+      selection.addRange(range);
+    }
+  });
 
   /* ---------- Start ---------- */
   els.club.hidden = !club.enabled;

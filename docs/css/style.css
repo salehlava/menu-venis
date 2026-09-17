@@ -714,6 +714,68 @@ html[dir="rtl"] .field input[dir="ltr"] { text-align: right; }
 .club__done svg { width: 56px; height: 56px; color: var(--accent-400); }
 .club__done p { margin: 10px 0 0; font-size: 1.05rem; font-weight: 700; color: #fff; }
 
+.club__send { display: grid; gap: 12px; }
+.club__send-title { margin: 0; font-size: 1.15rem; color: #fff; }
+.club__send-text { margin: 0; font-size: 0.9rem; color: rgb(255 255 255 / 0.78); }
+
+.club__message {
+  margin: 0;
+  padding: 14px 16px;
+  border: 1px solid rgb(255 255 255 / 0.16);
+  border-radius: 14px;
+  background: rgb(255 255 255 / 0.07);
+  color: #fff;
+  font: inherit;
+  font-size: 0.9rem;
+  line-height: 1.9;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.club__send-actions { display: grid; gap: 10px; }
+
+@media (min-width: 520px) {
+  .club__send-actions { grid-template-columns: 1fr 1fr; }
+  .club__send-actions > :first-child { grid-column: 1 / -1; }
+}
+
+.club__submit svg { width: 20px; height: 20px; }
+
+.btn-outline {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  height: 48px;
+  padding-inline: 16px;
+  border: 1px solid rgb(var(--accent-200-rgb) / 0.45);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--accent-200);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.btn-outline svg { width: 19px; height: 19px; }
+.btn-outline:hover { background: rgb(255 255 255 / 0.08); color: #fff; }
+
+.club__back {
+  justify-self: start;
+  border: 0;
+  background: transparent;
+  color: rgb(255 255 255 / 0.65);
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-decoration: underline;
+  cursor: pointer;
+  padding: 4px 0;
+}
+
+.club__back:hover { color: #fff; }
+
 /* ---------- Footer ---------- */
 .footer {
   position: relative;

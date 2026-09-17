@@ -25,17 +25,17 @@ function run() {
   // 1. Export the menu
   execFileSync(process.execPath, [path.join(ROOT, "scripts", "export-static.js")], { stdio: "inherit" });
 
-  // 2. Make sure .site is a checkout of the public repository
+  // 2. Make sure .site is an up-to-date checkout of the public repository
   if (!fs.existsSync(path.join(SITE, ".git"))) {
     fs.mkdirSync(SITE, { recursive: true });
     git(["init", "-b", "main"]);
     git(["remote", "add", "origin", REMOTE]);
-    try {
-      git(["fetch", "origin", "main"]);
-      git(["reset", "--hard", "origin/main"]);
-    } catch {
-      /* the public repository is still empty — nothing to fetch */
-    }
+  }
+  try {
+    git(["fetch", "origin", "main"]);
+    git(["reset", "--hard", "origin/main"]);
+  } catch {
+    /* the public repository is still empty — nothing to fetch */
   }
 
   // 3. Replace the site files (keep .git)

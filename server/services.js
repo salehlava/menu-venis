@@ -18,6 +18,9 @@ const DEFAULT_CLUB = {
     enabled: false,
     text: "{name} عزیز، به باشگاه مشتریان کافه ونیز خوش آمدید!",
   },
+  // Used by the published (static) menu, which has no server: visitors send
+  // their details to these numbers instead of the sign-up being stored here.
+  contact: { whatsapp: "", sms: "" },
 };
 
 module.exports = {
@@ -29,7 +32,12 @@ module.exports = {
 
   getClub: async () => {
     const c = await store.read("club-settings", DEFAULT_CLUB);
-    return { ...DEFAULT_CLUB, ...c, welcomeSms: { ...DEFAULT_CLUB.welcomeSms, ...(c.welcomeSms || {}) } };
+    return {
+      ...DEFAULT_CLUB,
+      ...c,
+      welcomeSms: { ...DEFAULT_CLUB.welcomeSms, ...(c.welcomeSms || {}) },
+      contact: { ...DEFAULT_CLUB.contact, ...(c.contact || {}) },
+    };
   },
   saveClub: (club) => store.update("club-settings", DEFAULT_CLUB, () => club),
 

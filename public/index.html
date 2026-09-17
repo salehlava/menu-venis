@@ -128,6 +128,28 @@
           <button type="submit" class="club__submit" id="clubSubmit" data-i18n="join"></button>
           <p class="club__msg" id="clubMsg" role="status" aria-live="polite"></p>
         </form>
+
+        <!-- Shown on the published menu, where there is no server: the visitor sends the details to the cafe. -->
+        <div class="club__send" id="clubSend" hidden>
+          <h3 class="club__send-title" data-i18n="clubSendTitle"></h3>
+          <p class="club__send-text" data-i18n="clubSendText"></p>
+          <pre class="club__message" id="clubMessage"></pre>
+          <div class="club__send-actions">
+            <a class="club__submit" id="clubWhatsapp" target="_blank" rel="noopener" hidden>
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15l-1.3 4.7 4.8-1.3A10 10 0 1 0 12 2zm0 1.8a8.2 8.2 0 1 1-4.2 15.2l-.3-.2-2.8.8.8-2.8-.2-.3A8.2 8.2 0 0 1 12 3.8zm-3.2 4c-.2 0-.5.1-.7.4-.2.3-.9.9-.9 2.2s.9 2.5 1 2.7c.1.2 1.8 2.9 4.5 3.9 2.2.9 2.7.7 3.2.6.5 0 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.6-.3l-2-1c-.3-.1-.5-.1-.7.1l-.9 1.1c-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5v-.5l-.9-2.1c-.2-.6-.4-.5-.6-.5h-.5z"/></svg>
+              <span data-i18n="sendWhatsapp"></span>
+            </a>
+            <a class="btn-outline" id="clubSmsLink" hidden>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h16a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H9l-5 4V6a1 1 0 0 1 1-1z"/></svg>
+              <span data-i18n="sendSms"></span>
+            </a>
+            <button type="button" class="btn-outline" id="clubCopy">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h8"/></svg>
+              <span data-i18n="copyText"></span>
+            </button>
+          </div>
+          <button type="button" class="club__back" id="clubBack" data-i18n="editAgain"></button>
+        </div>
       </div>
     </div>
   </section>

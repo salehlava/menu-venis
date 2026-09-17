@@ -35,6 +35,18 @@ export default {
       markDirty("club");
     });
 
+    const whatsapp = h("input", { class: "input ltr", dir: "ltr", type: "tel", maxlength: 20, value: (clubDraft.contact || {}).whatsapp || "", placeholder: "09xx xxx xxxx" });
+    whatsapp.addEventListener("input", () => {
+      clubDraft.contact = { ...(clubDraft.contact || {}), whatsapp: whatsapp.value };
+      markDirty("club");
+    });
+
+    const smsNumber = h("input", { class: "input ltr", dir: "ltr", type: "tel", maxlength: 20, value: (clubDraft.contact || {}).sms || "", placeholder: "09xx xxx xxxx" });
+    smsNumber.addEventListener("input", () => {
+      clubDraft.contact = { ...(clubDraft.contact || {}), sms: smsNumber.value };
+      markDirty("club");
+    });
+
     const clubSave = button(t("saveChanges"), { variant: "primary", iconName: "check" });
     clubSave.addEventListener("click", () =>
       withBusy(clubSave, async () => {
@@ -69,6 +81,14 @@ export default {
           switchControl({ checked: clubDraft.welcomeSms.enabled, ariaLabel: t("welcomeSms"), onChange: (v) => { clubDraft.welcomeSms.enabled = v; markDirty("club"); } })
         ),
         field(t("welcomeSmsText"), welcomeText, t("welcomeSmsTextHint")),
+        h("hr", { style: { border: 0, borderTop: "1px solid var(--a-line)", margin: "4px 0" } }),
+        h(
+          "div",
+          { class: "notice notice--info" },
+          icon("message"),
+          h("div", { class: "notice__body" }, h("strong", {}, t("publishedClubTitle")), h("p", {}, t("publishedClubText")))
+        ),
+        h("div", { class: "grid-2" }, field(t("clubWhatsapp"), whatsapp, t("clubWhatsappHint")), field(t("clubSmsNumber"), smsNumber, t("clubSmsNumberHint"))),
       ],
       clubSave
     );

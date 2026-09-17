@@ -5,12 +5,8 @@
  *
  *   npm run export
  *
- * The export contains the menu plus the admin panel in "GitHub mode":
- * the panel signs in with a GitHub token and saves menu, prices, cafe info
- * and colors straight back into the published repository.
- *
- * The Customer Club form is hidden in the export, because storing sign-ups
- * needs the Node server.
+ * ONLY the menu page is exported. The admin panel and the server stay in this
+ * private repository and are never published, so nobody can download them.
  *
  * After every menu or color change:  npm run export  → commit → push
  */
@@ -22,17 +18,14 @@ const svc = require("../server/services");
 const ROOT = path.resolve(__dirname, "..");
 const OUT = path.join(ROOT, "docs");
 
-// "owner/repo" of the PUBLIC menu repository the admin panel writes to.
-const SITE_REPO =
-  process.env.SITE_REPO ||
-  (process.env.SITE_REMOTE || "https://github.com/salehlava/venezia.git").replace(/^.*github\.com[/:]/, "").replace(/\.git$/, "");
-
 /** Absolute /css/… and /shared/… links become relative, so a subfolder works. */
 const relative = (html, prefix = "") =>
   html.replace(/(href|src)="\/(css|js|shared)\//g, (m, attr, dir) => `${attr}="${prefix}${dir}/`);
 
 async function main() {
-  const [menu, theme] = await Promise.all([svc.getMenu(), svc.getTheme()]);
+  const [menu, theme, club] = await Promise.all([svc.getMenu(), svc.getTheme(), svc.getClub()]);
+  const contact = club.contact || {};
+  const canJoin = Boolean(contact.whatsapp || contact.sms);
 
   const categories = menu.categories
     .map((cat) => ({ ...cat, items: cat.items.filter((item) => !item.hidden) }))
@@ -42,7 +35,15 @@ async function main() {
     cafe: menu.cafe,
     categories,
     theme: { brand: theme.brand },
-    club: { enabled: false }, // needs the server, so it is hidden in the static export
+    // No server here: the visitor fills the form and sends the details to the café.
+    club: {
+      enabled: Boolean(club.enabled && canJoin),
+      title: club.title,
+      text: club.text,
+      mode: "message",
+      whatsapp: contact.whatsapp || "",
+      sms: contact.sms || "",
+    },
   };
 
   await fs.rm(OUT, { recursive: true, force: true });
@@ -57,30 +58,12 @@ async function main() {
   await fs.writeFile(path.join(OUT, "js", "menu-data.js"), `window.MENU = ${JSON.stringify(payload)};\n`);
   await fs.writeFile(path.join(OUT, ".nojekyll"), "");
 
-  // The admin panel reads and writes these two files through the GitHub API.
-  await fs.mkdir(path.join(OUT, "data"), { recursive: true });
-  await fs.writeFile(path.join(OUT, "data", "menu.json"), JSON.stringify(menu, null, 2));
-  await fs.writeFile(path.join(OUT, "data", "theme.json"), JSON.stringify(theme, null, 2));
-
-  // Admin panel in GitHub mode
-  await fs.cp(path.join(ROOT, "public", "admin"), path.join(OUT, "admin"), { recursive: true });
-  const adminHtml = relative(await fs.readFile(path.join(ROOT, "public", "admin", "index.html"), "utf8"), "../").replace(
-    '<script src="js/main.js" type="module"></script>',
-    `<script src="js/config.js"></script>\n  <script src="js/main.js" type="module"></script>`
-  );
-  await fs.writeFile(path.join(OUT, "admin", "index.html"), adminHtml);
-  await fs.writeFile(
-    path.join(OUT, "admin", "js", "config.js"),
-    `/* Published admin panel: no server, so it talks to the GitHub API. */
-window.VENICE_MODE = "github";
-window.VENICE_REPO = ${JSON.stringify(SITE_REPO)};
-`
-  );
-  await fs.mkdir(path.join(OUT, "shared"), { recursive: true });
-  await fs.copyFile(path.join(ROOT, "shared", "theme.js"), path.join(OUT, "shared", "theme.js"));
-
   const items = categories.reduce((n, c) => n + c.items.length, 0);
-  console.log(`✓ Exported ${items} items in ${categories.length} categories to docs/ (menu + admin panel for ${SITE_REPO})`);
+  console.log(`✓ Exported ${items} items in ${categories.length} categories to docs/ (menu only)`);
+  if (club.enabled && !canJoin) {
+    console.log("  ⚠ Customer Club is hidden on the published menu: add a WhatsApp or SMS number");
+    console.log("    in Admin → Settings → Customer Club, then publish again.");
+  }
   console.log("  Now run:  git add -A && git commit -m \"update menu\" && git push");
 }
 

@@ -6,7 +6,7 @@ This is a digital menu for Venice Café in **Persian (RTL)** and **English**. It
 - a **Customer Club**, where visitors join from the menu and the admin sends them SMS messages.
 
 **Live menu (for customers / QR codes):** https://salehlava.github.io/venezia/
-**Admin panel on that link:** https://salehlava.github.io/venezia/admin/ (sign in with a GitHub token)
+**Admin panel:** runs on your own computer only (`npm start` → http://localhost:3000/admin). It is never published.
 
 > **Two repositories:** this one is **private** and holds all the source code. The published menu lives in the
 > public repository `salehlava/venezia`, which contains only the finished menu page. `npm run publish` updates it.
@@ -67,8 +67,8 @@ menu-venis/
 │       ├── admin.css
 │       └── js/
 │           ├── main.js          Login check, layout, router
-│           ├── api.js           API calls (server or GitHub, depending on mode)
-│           ├── github.js        GitHub mode: reads/writes the published repo
+│           ├── api.js           API calls
+│           ├── github.js        Optional GitHub-API backend (unused: the panel is not published)
 │           ├── i18n.js          Admin texts in Persian + English
 │           ├── ui.js            Shared UI helpers (dialogs, toasts, icons)
 │           └── views/           dashboard, menu, theme, info, customers, sms, settings, login
@@ -175,33 +175,24 @@ All settings are optional environment variables:
 | `ADMIN_USERNAME` / `ADMIN_PASSWORD` | — | Creates the admin on first start if none exists (handy on hosting panels) |
 | `SMS_DEV` | off | `1` enables the console test SMS provider |
 
-## Admin panel on the public link (GitHub mode)
+## Customer Club on the published menu
 
-The admin panel is published next to the menu at **https://salehlava.github.io/venezia/admin/**, so prices can be
-edited from any phone without running anything at home.
+The published menu has no server, so a sign-up cannot be stored there, and no key may be put in a public page.
+Instead the published menu collects the details in the browser and hands them to the visitor as a ready-made message:
 
-There is no server behind it, so it signs in with a **GitHub token** and writes the changed files straight into the
-public menu repository. About a minute later the menu link shows the new prices.
+1. The visitor fills in name, mobile and (optionally) birthday, and ticks the SMS consent box.
+2. The menu shows the finished message and three buttons: **Send on WhatsApp**, **Send by SMS**, **Copy the text**.
+3. The message arrives on the café's phone. You add the person in **Admin → Customer Club → Add customer**,
+   which puts them in the real member list with birthdays and SMS.
 
-| Works in GitHub mode | Needs the server (`npm start`) |
-|---|---|
-| Menu and prices, add/hide/reorder items and categories | Customer Club sign-ups and member list |
-| Bulk price change (percentage) | Sending SMS |
-| Menu colors, live preview | Admin username and password |
-| Cafe info (name, hours, address, …) | |
-| History and restore (the repository's commits) | |
+Nothing is stored in the public repository, and no credentials are exposed.
 
-### Creating the token
+**Before it appears, add a number:** Admin → **Settings → Customer Club** → *Café WhatsApp number* and/or
+*Café SMS number* → Save → `npm run publish`. With both numbers empty the sign-up form stays hidden,
+and `npm run publish` warns you about it.
 
-1. Open https://github.com/settings/personal-access-tokens/new (sign in to GitHub).
-2. **Token name:** anything, for example `venezia-menu`. **Expiration:** 90 days or longer.
-3. **Repository access → Only select repositories →** pick `venezia`.
-4. **Permissions → Repository permissions → Contents → Read and write.**
-5. Generate the token and copy it (it is shown only once).
-6. Open the admin panel, paste it, sign in. It is stored in that browser only, so you sign in once per device.
-
-If a token leaks, delete it at https://github.com/settings/tokens — it can only touch the menu repository.
-Anyone can open the admin address, but without a token nothing can be changed.
+When you run the server yourself (`npm start`, or on a host later), the same form posts sign-ups straight into the
+member list — no message step.
 
 ## The public menu link (GitHub Pages)
 
