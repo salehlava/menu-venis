@@ -13,7 +13,8 @@ http://localhost:3000/admin when you run the server, where the club and SMS work
 > public repository `salehlava/menu-venezia`, which contains only the finished menu page. `npm run publish` updates it.
 
 **Theme:** mallard green (green-headed goose) · rose gold · gray. The admin can change these colors.
-**Stack:** Node.js with no dependencies (nothing to `npm install`), plain HTML/CSS/JS, and JSON files for storage.
+**Stack:** Node.js, plain HTML/CSS/JS, JSON files for storage. The server itself has **no runtime dependencies**;
+`esbuild` is installed only to compress the published site (`npm install` once, then it works offline).
 
 ---
 
@@ -182,9 +183,11 @@ The admin panel is published next to the menu at **https://salehlava.github.io/m
 be edited from any phone. It signs in with a **GitHub token** and commits the changed files to the public menu
 repository; the menu link shows the new prices about a minute later.
 
-**What a stranger can see there:** the admin page itself (its HTML/CSS/JS), exactly like any web page. It contains no
-keys and no customer data, and without a token nothing can be changed.
-**What stays private:** the server, the customer database, SMS code and every key — they live in this repository.
+**The published panel is compiled, not source.** `npm run export` bundles and minifies every script into a single
+compressed `admin/app.js`; no readable source file, module or stylesheet source is published. A visitor can still
+download that compiled file (any browser must), but it is machine output, contains no keys and no customer data,
+and changes nothing without a token.
+**What stays private:** the readable source, the server, the customer database, SMS code and every key.
 
 | Works in GitHub mode | Needs the server (`npm start`) |
 |---|---|

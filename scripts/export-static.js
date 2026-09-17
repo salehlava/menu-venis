@@ -1,17 +1,23 @@
 #!/usr/bin/env node
 /*
- * Exports a STATIC copy of the public menu into docs/ for free hosting
+ * Exports a STATIC copy of the site into docs/ for free hosting
  * (GitHub Pages, Netlify drop, any web host).
  *
- *   npm run export
+ *   npm run export     build docs/
+ *   npm run publish    build docs/ and push it to the public menu repository
  *
- * ONLY the menu page is exported. The admin panel and the server stay in this
- * private repository and are never published, so nobody can download them.
+ * Exported: the menu page + the admin panel in "GitHub mode" (the panel signs
+ * in with a GitHub token and saves changes back into the published repository).
  *
- * After every menu or color change:  npm run export  → commit → push
+ * Every script and stylesheet is bundled and minified first, so the published
+ * site carries one compressed file instead of readable source files.
+ *
+ * Never exported: the readable source, the server, the customer database,
+ * the SMS code and every key — they stay in this private repository.
  */
 const fs = require("node:fs/promises");
 const path = require("node:path");
+const esbuild = require("esbuild");
 const { buildThemeCss } = require("../shared/theme");
 const svc = require("../server/services");
 
@@ -22,8 +28,24 @@ const OUT = path.join(ROOT, "docs");
 const SITE_REPO =
   process.env.SITE_REPO ||
   (process.env.SITE_REMOTE || "https://github.com/salehlava/menu-venezia.git")
-    .replace(/^.*github.com[/:]/, "")
-    .replace(/.git$/, "");
+    .replace(/^.*github\.com[/:]/, "")
+    .replace(/\.git$/, "");
+
+/* ---------- minifying ---------- */
+/** Minifies one file; with `bundle`, pulls every imported module into it too. */
+function minify(file, { bundle = false } = {}) {
+  const result = esbuild.buildSync({
+    entryPoints: [path.join(ROOT, file)],
+    bundle,
+    minify: true,
+    format: bundle ? "iife" : undefined,
+    platform: "browser",
+    target: ["es2020"],
+    legalComments: "none",
+    write: false,
+  });
+  return result.outputFiles[0].text;
+}
 
 /** Absolute /css/… and /shared/… links become relative, so a subfolder works. */
 const relative = (html, prefix = "") =>
@@ -56,48 +78,50 @@ async function main() {
   await fs.rm(OUT, { recursive: true, force: true });
   await fs.mkdir(path.join(OUT, "css"), { recursive: true });
   await fs.mkdir(path.join(OUT, "js"), { recursive: true });
+  await fs.mkdir(path.join(OUT, "admin"), { recursive: true });
+  await fs.mkdir(path.join(OUT, "data"), { recursive: true });
 
-  const html = relative(await fs.readFile(path.join(ROOT, "public", "index.html"), "utf8"));
-  await fs.writeFile(path.join(OUT, "index.html"), html);
-  await fs.copyFile(path.join(ROOT, "public", "css", "style.css"), path.join(OUT, "css", "style.css"));
-  await fs.copyFile(path.join(ROOT, "public", "js", "app.js"), path.join(OUT, "js", "app.js"));
+  /* ---------- menu page ---------- */
+  await fs.writeFile(path.join(OUT, "index.html"), relative(await fs.readFile(path.join(ROOT, "public", "index.html"), "utf8")));
+  await fs.writeFile(path.join(OUT, "css", "style.css"), minify("public/css/style.css"));
+  await fs.writeFile(path.join(OUT, "js", "app.js"), minify("public/js/app.js"));
   await fs.writeFile(path.join(OUT, "css", "theme.css"), buildThemeCss(theme));
   await fs.writeFile(path.join(OUT, "js", "menu-data.js"), `window.MENU = ${JSON.stringify(payload)};\n`);
   await fs.writeFile(path.join(OUT, ".nojekyll"), "");
-  // The admin panel reads and writes these two files through the GitHub API.
-  await fs.mkdir(path.join(OUT, "data"), { recursive: true });
+
+  /* ---------- admin panel: one compressed file ---------- */
+  // Menu data the panel reads and writes through the GitHub API (data, not code).
   await fs.writeFile(path.join(OUT, "data", "menu.json"), JSON.stringify(menu, null, 2));
   await fs.writeFile(path.join(OUT, "data", "theme.json"), JSON.stringify(theme, null, 2));
 
-  // Admin panel (GitHub mode)
-  await fs.cp(path.join(ROOT, "public", "admin"), path.join(OUT, "admin"), { recursive: true });
-  const adminHtml = relative(await fs.readFile(path.join(ROOT, "public", "admin", "index.html"), "utf8"), "../").replace(
-    `<script src="js/main.js" type="module"></script>`,
-    `<script src="js/config.js"></script>
-  <script src="js/main.js" type="module"></script>`
-  );
+  const settings = `window.VENICE_MODE="github";window.VENICE_REPO=${JSON.stringify(SITE_REPO)};`;
+  const themeLib = minify("shared/theme.js"); // defines window.VeniceTheme
+  const panel = minify("public/admin/js/main.js", { bundle: true });
+  await fs.writeFile(path.join(OUT, "admin", "app.js"), `${settings}\n${themeLib}\n${panel}`);
+  await fs.writeFile(path.join(OUT, "admin", "admin.css"), minify("public/admin/admin.css"));
+
+  const adminHtml = relative(await fs.readFile(path.join(ROOT, "public", "admin", "index.html"), "utf8"), "../")
+    .replace(`  <script src="../shared/theme.js" defer></script>\n`, "")
+    .replace(`<script src="js/main.js" type="module"></script>`, `<script src="app.js" defer></script>`);
+
+  if (adminHtml.includes("js/main.js") || adminHtml.includes("shared/theme.js")) {
+    throw new Error("The admin page still points at source files — check public/admin/index.html");
+  }
   await fs.writeFile(path.join(OUT, "admin", "index.html"), adminHtml);
-  await fs.writeFile(
-    path.join(OUT, "admin", "js", "config.js"),
-    `/* Published admin panel: no server, so it talks to the GitHub API. */
-window.VENICE_MODE = "github";
-window.VENICE_REPO = ${JSON.stringify(SITE_REPO)};
-`
-  );
-  await fs.mkdir(path.join(OUT, "shared"), { recursive: true });
-  await fs.copyFile(path.join(ROOT, "shared", "theme.js"), path.join(OUT, "shared", "theme.js"));
 
-
+  /* ---------- report ---------- */
   const items = categories.reduce((n, c) => n + c.items.length, 0);
-  console.log(`✓ Exported ${items} items in ${categories.length} categories to docs/ (menu + admin panel for ${SITE_REPO})`);
+  const size = (await fs.stat(path.join(OUT, "admin", "app.js"))).size;
+  console.log(`✓ Exported ${items} items in ${categories.length} categories to docs/`);
+  console.log(`  admin panel: 1 compressed file (${Math.round(size / 1024)} KB) — no source published`);
   if (club.enabled && !canJoin) {
     console.log("  ⚠ Customer Club is hidden on the published menu: add a WhatsApp or SMS number");
     console.log("    in Admin → Settings → Customer Club, then publish again.");
   }
-  console.log("  Now run:  git add -A && git commit -m \"update menu\" && git push");
+  console.log("  Now run:  npm run publish");
 }
 
 main().catch((err) => {
-  console.error(err);
+  console.error(`\n✗ ${err.message}`);
   process.exit(1);
 });
