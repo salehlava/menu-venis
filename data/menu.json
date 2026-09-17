@@ -42,7 +42,7 @@
             "en": "Espresso 50/50",
             "fa": "اسپرسو ۵۰/۵۰"
           },
-          "price": 120
+          "price": 125
         },
         {
           "name": {
@@ -483,66 +483,66 @@
             "en": "Sun Mix",
             "fa": "سان میکس"
           },
+          "price": 400,
           "desc": {
             "en": "Mango · Orange",
             "fa": "انبه · پرتقال"
-          },
-          "price": 400
+          }
         },
         {
           "name": {
             "en": "Red Smoothie",
             "fa": "رد اسموتی"
           },
+          "price": 400,
           "desc": {
             "en": "Strawberry",
             "fa": "توت‌فرنگی"
-          },
-          "price": 400
+          }
         },
         {
           "name": {
             "en": "Gold Melon",
             "fa": "گلد ملون"
           },
+          "price": 350,
           "desc": {
             "en": "Cantaloupe",
             "fa": "طالبی"
-          },
-          "price": 350
+          }
         },
         {
           "name": {
             "en": "Red Fresh",
             "fa": "رد فرش"
           },
+          "price": 350,
           "desc": {
             "en": "Watermelon · Mint",
             "fa": "هندوانه · نعناع"
-          },
-          "price": 350
+          }
         },
         {
           "name": {
             "en": "Citrious",
             "fa": "سیتریوس"
           },
+          "price": 450,
           "desc": {
             "en": "Citrus",
             "fa": "مرکبات"
-          },
-          "price": 450
+          }
         },
         {
           "name": {
             "en": "Velvet Berry",
             "fa": "ولوت بری"
           },
+          "price": 400,
           "desc": {
             "en": "Raspberry",
             "fa": "تمشک"
-          },
-          "price": 400
+          }
         },
         {
           "name": {
