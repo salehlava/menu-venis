@@ -1,0 +1,8 @@
+data
+docs
+.site
+.git
+.vscode
+node_modules
+start-dev.bat
+*.log

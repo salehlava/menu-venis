@@ -5,7 +5,10 @@ This is a digital menu for Venice Café in **Persian (RTL)** and **English**. It
 - an **admin panel** protected by username and password, for editing prices and items, menu colors and cafe info;
 - a **Customer Club**, where visitors join from the menu and the admin sends them SMS messages.
 
-**Live menu (for customers / QR codes):** https://salehlava.github.io/menu-venis/
+**Live menu (for customers / QR codes):** https://salehlava.github.io/venezia/
+
+> **Two repositories:** this one is **private** and holds all the source code. The published menu lives in the
+> public repository `salehlava/venezia`, which contains only the finished menu page. `npm run publish` updates it.
 
 **Theme:** mallard green (green-headed goose) · rose gold · gray. The admin can change these colors.
 **Stack:** Node.js with no dependencies (nothing to `npm install`), plain HTML/CSS/JS, and JSON files for storage.
@@ -172,7 +175,9 @@ All settings are optional environment variables:
 
 ## The public menu link (GitHub Pages)
 
-The menu is published for free at **https://salehlava.github.io/menu-venis/** — anyone can open it, and it is the address to put on a QR code.
+The menu is published for free at **https://salehlava.github.io/venezia/** — anyone can open it, and it is the address to put on a QR code.
+
+It is served from the separate **public** repository `salehlava/venezia`, so this source repository can stay private.
 
 That link is a **static copy** of the menu: it needs no server, so it costs nothing and is always online. Because there is no server behind it:
 
@@ -181,16 +186,14 @@ That link is a **static copy** of the menu: it needs no server, so it costs noth
 
 ### Updating the public menu
 
-After changing prices, items or colors in the admin panel:
+After changing prices, items or colors in the admin panel, run one command:
 
 ```bash
-npm run export
-git add -A
-git commit -m "update menu"
-git push
+npm run publish
 ```
 
-The public link updates about a minute later. `npm run export` reads your live data from `data/` and writes `docs/`, which GitHub Pages serves.
+It exports your live data to `docs/`, copies it into the public menu repository and pushes it. The public link
+updates about a minute later. (`npm run export` only builds `docs/` without publishing.)
 
 > To put the **whole** system online — admin panel and club sign-ups included — deploy the Node server to a host (see below) and point your QR code at that address instead.
 

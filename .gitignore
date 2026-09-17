@@ -7,3 +7,6 @@ node_modules/
 # Local test start buttons (only for this computer)
 start-dev.bat
 .vscode/
+
+# Checkout of the public menu repository (created by npm run publish)
+.site/

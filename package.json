@@ -8,7 +8,8 @@
     "start": "node server/index.js",
     "dev": "node --watch server/index.js",
     "set-admin": "node scripts/set-admin.js",
-    "export": "node scripts/export-static.js"
+    "export": "node scripts/export-static.js",
+    "publish": "node scripts/publish-site.js"
   },
   "engines": {
     "node": ">=20"
