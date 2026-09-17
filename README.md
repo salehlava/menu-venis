@@ -6,7 +6,8 @@ This is a digital menu for Venice Café in **Persian (RTL)** and **English**. It
 - a **Customer Club**, where visitors join from the menu and the admin sends them SMS messages.
 
 **Live menu (for customers / QR codes):** https://salehlava.github.io/menu-venezia/
-**Admin panel:** runs on your own computer only (`npm start` → http://localhost:3000/admin). It is never published.
+**Admin panel:** https://salehlava.github.io/menu-venezia/admin/ (sign in with a GitHub token) — also at
+http://localhost:3000/admin when you run the server, where the club and SMS work too.
 
 > **Two repositories:** this one is **private** and holds all the source code. The published menu lives in the
 > public repository `salehlava/menu-venezia`, which contains only the finished menu page. `npm run publish` updates it.
@@ -174,6 +175,34 @@ All settings are optional environment variables:
 | `TIME_ZONE` | `Asia/Tehran` | Time zone used for "birthday today" |
 | `ADMIN_USERNAME` / `ADMIN_PASSWORD` | — | Creates the admin on first start if none exists (handy on hosting panels) |
 | `SMS_DEV` | off | `1` enables the console test SMS provider |
+
+## Admin panel on the public link (GitHub mode)
+
+The admin panel is published next to the menu at **https://salehlava.github.io/menu-venezia/admin/**, so prices can
+be edited from any phone. It signs in with a **GitHub token** and commits the changed files to the public menu
+repository; the menu link shows the new prices about a minute later.
+
+**What a stranger can see there:** the admin page itself (its HTML/CSS/JS), exactly like any web page. It contains no
+keys and no customer data, and without a token nothing can be changed.
+**What stays private:** the server, the customer database, SMS code and every key — they live in this repository.
+
+| Works in GitHub mode | Needs the server (`npm start`) |
+|---|---|
+| Menu and prices, add/hide/reorder items and categories | Customer Club member list |
+| Bulk price change (percentage) | Sending SMS |
+| Menu colors, live preview | Admin username and password |
+| Cafe info | |
+| History and restore (the repository's commits) | |
+
+### Creating the token
+
+1. Open https://github.com/settings/personal-access-tokens/new
+2. **Token name:** `venezia-menu`. **Expiration:** 90 days or longer.
+3. **Repository access → Only select repositories →** pick `menu-venezia`.
+4. **Permissions → Repository permissions → Contents → Read and write.**
+5. Generate, copy the token, paste it into the admin panel. It is stored in that browser only.
+
+Delete a leaked token at https://github.com/settings/tokens — it can only touch the menu repository.
 
 ## Customer Club on the published menu
 
