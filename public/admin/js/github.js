@@ -15,6 +15,7 @@ const TOKEN_KEY = "venice-gh-token";
 const API = "https://api.github.com";
 
 const repo = () => window.VENICE_REPO || "";
+const branch = () => window.VENICE_BRANCH || "main";
 
 const PATHS = {
   menu: "data/menu.json",
@@ -92,7 +93,7 @@ function decode(base64) {
 /* ---------- reading ---------- */
 async function readJson(path, fallback) {
   try {
-    const file = await gh("/repos/" + repo() + "/contents/" + path + "?ref=main&t=" + Date.now());
+    const file = await gh("/repos/" + repo() + "/contents/" + path + "?ref=" + branch() + "&t=" + Date.now());
     return JSON.parse(decode(file.content));
   } catch (err) {
     if (err.code === "not_found" && fallback !== undefined) return fallback;
@@ -103,7 +104,7 @@ async function readJson(path, fallback) {
 /* ---------- writing: several files in one commit ---------- */
 async function commitFiles(files, message) {
   const r = repo();
-  const ref = await gh("/repos/" + r + "/git/ref/heads/main");
+  const ref = await gh("/repos/" + r + "/git/ref/heads/" + branch());
   const head = ref.object.sha;
   const headCommit = await gh("/repos/" + r + "/git/commits/" + head);
 
@@ -124,7 +125,7 @@ async function commitFiles(files, message) {
     method: "POST",
     body: { message, tree: newTree.sha, parents: [head] },
   });
-  await gh("/repos/" + r + "/git/refs/heads/main", { method: "PATCH", body: { sha: commit.sha } });
+  await gh("/repos/" + r + "/git/refs/heads/" + branch(), { method: "PATCH", body: { sha: commit.sha } });
   return commit.sha;
 }
 
@@ -300,7 +301,7 @@ const ROUTES = {
 
   // History = the commits that changed the menu file.
   "GET /api/admin/menu/backups": async () => {
-    const commits = await gh("/repos/" + repo() + "/commits?path=" + PATHS.menu + "&per_page=30");
+    const commits = await gh("/repos/" + repo() + "/commits?sha=" + branch() + "&path=" + PATHS.menu + "&per_page=30");
     return commits.map((c) => ({ file: c.sha, date: c.commit.committer.date }));
   },
 

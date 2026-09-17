@@ -5,12 +5,13 @@ This is a digital menu for Venice Café in **Persian (RTL)** and **English**. It
 - an **admin panel** protected by username and password, for editing prices and items, menu colors and cafe info;
 - a **Customer Club**, where visitors join from the menu and the admin sends them SMS messages.
 
-**Live menu (for customers / QR codes):** https://salehlava.github.io/menu-venezia/
-**Admin panel:** https://salehlava.github.io/menu-venezia/admin/ (sign in with a GitHub token) — also at
+**Live menu (for customers / QR codes):** https://salehlava.github.io/menu-venis/
+**Admin panel:** https://salehlava.github.io/menu-venis/admin/ (sign in with a GitHub token) — also at
 http://localhost:3000/admin when you run the server, where the club and SMS work too.
 
-> **Two repositories:** this one is **private** and holds all the source code. The published menu lives in the
-> public repository `salehlava/menu-venezia`, which contains only the finished menu page. `npm run publish` updates it.
+> **One repository, two branches:** the source lives on the **private** `main` branch. `npm run publish` builds the
+> site and pushes it to the **`gh-pages`** branch, which GitHub Pages serves publicly. Only built files are on that
+> branch — no source, no server, no data.
 
 **Theme:** mallard green (green-headed goose) · rose gold · gray. The admin can change these colors.
 **Stack:** Node.js, plain HTML/CSS/JS, JSON files for storage. The server itself has **no runtime dependencies**;
@@ -179,7 +180,7 @@ All settings are optional environment variables:
 
 ## Admin panel on the public link (GitHub mode)
 
-The admin panel is published next to the menu at **https://salehlava.github.io/menu-venezia/admin/**, so prices can
+The admin panel is published next to the menu at **https://salehlava.github.io/menu-venis/admin/**, so prices can
 be edited from any phone. It signs in with a **GitHub token** and commits the changed files to the public menu
 repository; the menu link shows the new prices about a minute later.
 
@@ -201,7 +202,7 @@ and changes nothing without a token.
 
 1. Open https://github.com/settings/personal-access-tokens/new
 2. **Token name:** `venezia-menu`. **Expiration:** 90 days or longer.
-3. **Repository access → Only select repositories →** pick `menu-venezia`.
+3. **Repository access → Only select repositories →** pick `menu-venis`.
 4. **Permissions → Repository permissions → Contents → Read and write.**
 5. Generate, copy the token, paste it into the admin panel. It is stored in that browser only.
 
@@ -228,9 +229,10 @@ member list — no message step.
 
 ## The public menu link (GitHub Pages)
 
-The menu is published for free at **https://salehlava.github.io/menu-venezia/** — anyone can open it, and it is the address to put on a QR code.
+The menu is published for free at **https://salehlava.github.io/menu-venis/** — anyone can open it, and it is the address to put on a QR code.
 
-It is served from the separate **public** repository `salehlava/menu-venezia`, so this source repository can stay private.
+It is served from the **`gh-pages`** branch of this repository. The repository itself stays private: only that branch
+is public, and it holds nothing but the built page and the compiled admin panel.
 
 That link is a **static copy** of the menu: it needs no server, so it costs nothing and is always online. Because there is no server behind it:
 

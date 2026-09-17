@@ -27,9 +27,13 @@ const OUT = path.join(ROOT, "docs");
 // "owner/repo" of the PUBLIC menu repository that the admin panel writes to.
 const SITE_REPO =
   process.env.SITE_REPO ||
-  (process.env.SITE_REMOTE || "https://github.com/salehlava/menu-venezia.git")
+  (process.env.SITE_REMOTE || "https://github.com/salehlava/menu-venis.git")
     .replace(/^.*github\.com[/:]/, "")
     .replace(/\.git$/, "");
+
+// Branch the published site lives on (gh-pages of the private repository, so the
+// site is public while the source stays private).
+const SITE_BRANCH = process.env.SITE_BRANCH || "gh-pages";
 
 /* ---------- minifying ---------- */
 /** Minifies one file; with `bundle`, pulls every imported module into it too. */
@@ -94,7 +98,8 @@ async function main() {
   await fs.writeFile(path.join(OUT, "data", "menu.json"), JSON.stringify(menu, null, 2));
   await fs.writeFile(path.join(OUT, "data", "theme.json"), JSON.stringify(theme, null, 2));
 
-  const settings = `window.VENICE_MODE="github";window.VENICE_REPO=${JSON.stringify(SITE_REPO)};`;
+  const settings =
+    `window.VENICE_MODE="github";window.VENICE_REPO=${JSON.stringify(SITE_REPO)};window.VENICE_BRANCH=${JSON.stringify(SITE_BRANCH)};`;
   const themeLib = minify("shared/theme.js"); // defines window.VeniceTheme
   const panel = minify("public/admin/js/main.js", { bundle: true });
   await fs.writeFile(path.join(OUT, "admin", "app.js"), `${settings}\n${themeLib}\n${panel}`);
@@ -114,6 +119,7 @@ async function main() {
   const size = (await fs.stat(path.join(OUT, "admin", "app.js"))).size;
   console.log(`✓ Exported ${items} items in ${categories.length} categories to docs/`);
   console.log(`  admin panel: 1 compressed file (${Math.round(size / 1024)} KB) — no source published`);
+  console.log(`  publishes to: ${SITE_REPO} (branch ${SITE_BRANCH})`);
   if (club.enabled && !canJoin) {
     console.log("  ⚠ Customer Club is hidden on the published menu: add a WhatsApp or SMS number");
     console.log("    in Admin → Settings → Customer Club, then publish again.");
