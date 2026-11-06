@@ -42,77 +42,84 @@
             "en": "Espresso 50/50",
             "fa": "اسپرسو ۵۰/۵۰"
           },
-          "price": 120
+          "price": 140
         },
         {
           "name": {
             "en": "Espresso 70/30",
             "fa": "اسپرسو ۷۰/۳۰"
           },
-          "price": 100
+          "price": 110
         },
         {
           "name": {
             "en": "Americano",
             "fa": "آمریکانو"
           },
-          "price": 110
+          "price": 120
         },
         {
           "name": {
             "en": "Latte",
             "fa": "لاته"
           },
-          "price": 180
+          "price": 220
         },
         {
           "name": {
             "en": "Frappuccino",
             "fa": "فراپاچینو"
           },
-          "price": 180
+          "price": 200
         },
         {
           "name": {
             "en": "Mocha",
             "fa": "موکا"
           },
-          "price": 200
+          "price": 220
         },
         {
           "name": {
             "en": "Cortado",
             "fa": "کورتادو"
           },
-          "price": 130
+          "price": 150
         },
         {
           "name": {
             "en": "Macchiato",
             "fa": "ماکیاتو"
           },
-          "price": 180
+          "price": 200
         },
         {
           "name": {
             "en": "Masala Espresso",
             "fa": "اسپرسو ماسالا"
           },
-          "price": 160
+          "price": 180
         },
         {
           "name": {
             "en": "Espresso Romano",
             "fa": "اسپرسو رومانو"
           },
-          "price": 140
+          "price": 160
         },
         {
           "name": {
             "en": "Caramel Macchiato",
             "fa": "کارامل ماکیاتو"
           },
-          "price": 200
+          "price": 220
+        },
+        {
+          "name": {
+            "en": "Add Syrup",
+            "fa": "سیروپ (افزودنی)"
+          },
+          "price": 30
         }
       ]
     },
@@ -133,105 +140,105 @@
             "en": "Saffron Tea",
             "fa": "چای زعفران"
           },
-          "price": 90
+          "price": 110
         },
         {
           "name": {
             "en": "Brewed Tea",
             "fa": "چای دمی"
           },
-          "price": 50
+          "price": 70
         },
         {
           "name": {
             "en": "Caramel Tea",
             "fa": "چای کارامل"
           },
-          "price": 80
+          "price": 100
         },
         {
           "name": {
             "en": "Cinnamon Tea",
             "fa": "چای دارچین"
           },
-          "price": 50
+          "price": 70
         },
         {
           "name": {
             "en": "Karak Tea",
             "fa": "چای کرک"
           },
-          "price": 130
+          "price": 150
         },
         {
           "name": {
             "en": "Ginger Tea",
             "fa": "چای زنجبیل"
           },
-          "price": 130
+          "price": 150
         },
         {
           "name": {
             "en": "Saffron Pistachio Milk Tea",
             "fa": "شیرچای زعفران و پسته"
           },
-          "price": 150
+          "price": 170
         },
         {
           "name": {
             "en": "Masala Tea",
             "fa": "چای ماسالا"
           },
-          "price": 150
+          "price": 170
         },
         {
           "name": {
             "en": "Green Tea",
             "fa": "چای سبز"
           },
-          "price": 90
+          "price": 110
         },
         {
           "name": {
             "en": "Chamomile",
             "fa": "دمنوش بابونه"
           },
-          "price": 90
+          "price": 110
         },
         {
           "name": {
             "en": "Lemon",
             "fa": "دمنوش لیمو"
           },
-          "price": 90
+          "price": 110
         },
         {
           "name": {
             "en": "Borage",
             "fa": "دمنوش گل گاوزبان"
           },
-          "price": 90
+          "price": 110
         },
         {
           "name": {
             "en": "Fruit Tea",
             "fa": "دمنوش میوه‌ای"
           },
-          "price": 90
+          "price": 110
         },
         {
           "name": {
             "en": "Herbal Blend",
             "fa": "دمنوش گیاهی"
           },
-          "price": 90
+          "price": 110
         },
         {
           "name": {
             "en": "Venice Special",
             "fa": "دمنوش ویژه ونیز"
           },
-          "price": 150,
+          "price": 170,
           "tag": "signature"
         }
       ]
@@ -260,63 +267,63 @@
             "en": "Cappuccino",
             "fa": "کاپوچینو"
           },
-          "price": 180
+          "price": 220
         },
         {
           "name": {
             "en": "Capo Nutella",
             "fa": "کاپو نوتلا"
           },
-          "price": 220
+          "price": 240
         },
         {
           "name": {
             "en": "Capo Coconut",
             "fa": "کاپو نارگیل"
           },
-          "price": 200
+          "price": 220
         },
         {
           "name": {
             "en": "Capo Hazelnut",
             "fa": "کاپو فندق"
           },
-          "price": 200
+          "price": 220
         },
         {
           "name": {
             "en": "Capo Gulf",
             "fa": "کاپو گلف"
           },
-          "price": 180
+          "price": 200
         },
         {
           "name": {
             "en": "Hot Chocolate",
             "fa": "هات چاکلت"
           },
-          "price": 180
+          "price": 220
         },
         {
           "name": {
             "en": "White Chocolate",
             "fa": "وایت چاکلت"
           },
-          "price": 180
+          "price": 200
         },
         {
           "name": {
             "en": "Fruity White Chocolate",
             "fa": "وایت چاکلت میوه‌ای"
           },
-          "price": 180
+          "price": 200
         },
         {
           "name": {
             "en": "Pink Chocolate",
             "fa": "پینک چاکلت"
           },
-          "price": 180
+          "price": 200
         }
       ]
     },
@@ -337,49 +344,49 @@
             "en": "Iced Americano",
             "fa": "آیس آمریکانو"
           },
-          "price": 140
+          "price": 150
         },
         {
           "name": {
             "en": "Iced Mocha",
             "fa": "آیس موکا"
           },
-          "price": 200
+          "price": 220
         },
         {
           "name": {
             "en": "Iced Latte",
             "fa": "آیس لاته"
           },
-          "price": 180
+          "price": 200
         },
         {
           "name": {
             "en": "Iced Chocolate",
             "fa": "آیس چاکلت"
           },
-          "price": 180
+          "price": 200
         },
         {
           "name": {
             "en": "Iced Masala",
             "fa": "آیس ماسالا"
           },
-          "price": 160
+          "price": 180
         },
         {
           "name": {
             "en": "Iced Affogato",
             "fa": "آیس آفوگاتو"
           },
-          "price": 230
+          "price": 250
         },
         {
           "name": {
             "en": "Iced Orange Americano",
             "fa": "آیس آمریکانو پرتقال"
           },
-          "price": 230
+          "price": 250
         }
       ]
     },
@@ -466,56 +473,56 @@
             "en": "Vanilla Shake",
             "fa": "شیک وانیل"
           },
-          "price": 300
+          "price": 320
         },
         {
           "name": {
             "en": "Chocolate Shake",
             "fa": "شیک شکلات"
           },
-          "price": 320
+          "price": 340
         },
         {
           "name": {
             "en": "Lotus Shake",
             "fa": "شیک لوتوس"
           },
-          "price": 330
+          "price": 350
         },
         {
           "name": {
             "en": "Peanut Shake",
             "fa": "شیک بادام‌زمینی"
           },
-          "price": 350
+          "price": 370
         },
         {
           "name": {
             "en": "Nutella Shake",
             "fa": "شیک نوتلا"
           },
-          "price": 330
+          "price": 350
         },
         {
           "name": {
             "en": "Chocolate Banana Shake",
             "fa": "شیک موز و شکلات"
           },
-          "price": 350
+          "price": 370
         },
         {
           "name": {
             "en": "Protein Shake",
             "fa": "شیک پروتئین"
           },
-          "price": 400
+          "price": 420
         },
         {
           "name": {
             "en": "Strawberry Shake",
             "fa": "شیک توت‌فرنگی"
           },
-          "price": 330
+          "price": 350
         }
       ]
     },
@@ -653,35 +660,107 @@
             "en": "Turkey Bacon Sandwich",
             "fa": "ساندویچ بیکن بوقلمون"
           },
-          "price": 440
+          "price": 460
         },
         {
           "name": {
             "en": "Beef Bacon Sandwich",
             "fa": "ساندویچ بیکن گوساله"
           },
-          "price": 480
+          "price": 500
         },
         {
           "name": {
             "en": "Chicken Bacon Sandwich",
             "fa": "ساندویچ بیکن مرغ"
           },
-          "price": 400
+          "price": 420
         },
         {
           "name": {
             "en": "Tomato & Cucumber Simit",
             "fa": "سیمیت گوجه و خیار"
           },
-          "price": 280
+          "price": 300
         },
         {
           "name": {
             "en": "Cheese & Vegetable Simit",
             "fa": "سیمیت پنیر و سبزیجات"
           },
-          "price": 280
+          "price": 300
+        },
+        {
+          "name": {
+            "en": "Chicken Ham Club Sandwich",
+            "fa": "کلاب ژامبون مرغ"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "Meat Club Sandwich",
+            "fa": "کلاب ژامبون گوشت"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "Pepperoni Club",
+            "fa": "کلاب پپرونی"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "6-Piece Chicken Balls",
+            "fa": "چیکن توپی ۶ عددی"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "12-Piece Chicken Balls",
+            "fa": "چیکن توپی ۱۲ عددی"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "10 Onion Rings",
+            "fa": "پیاز حلقه‌ای ۱۰ عددی"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "Greek Garlic Bread",
+            "fa": "نان سیر یونانی"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "Special Potatoes",
+            "fa": "سیب‌زمینی مخصوص"
+          },
+          "price": null,
+          "tag": "new"
+        },
+        {
+          "name": {
+            "en": "Grilled Caesar Salad",
+            "fa": "سالاد سزار گریل"
+          },
+          "price": null,
+          "tag": "new"
         }
       ]
     }
