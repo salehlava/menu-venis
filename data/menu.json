@@ -692,50 +692,50 @@
         },
         {
           "name": {
-            "en": "Chicken Ham Club Sandwich",
+            "en": "Chick pop club",
             "fa": "کلاب ژامبون مرغ"
           },
-          "price": null,
+          "price": 250000,
           "tag": "new"
         },
         {
           "name": {
-            "en": "Meat Club Sandwich",
+            "en": "Beefy Boom",
             "fa": "کلاب ژامبون گوشت"
           },
-          "price": null,
+          "price": 265000,
           "tag": "new"
         },
         {
           "name": {
-            "en": "Pepperoni Club",
+            "en": "Pepper Pop",
             "fa": "کلاب پپرونی"
           },
-          "price": null,
+          "price": 260000,
           "tag": "new"
         },
         {
           "name": {
-            "en": "6-Piece Chicken Balls",
+            "en": "6 _ pieces chicken Ball",
             "fa": "چیکن توپی ۶ عددی"
           },
-          "price": null,
+          "price": 275000,
           "tag": "new"
         },
         {
           "name": {
-            "en": "12-Piece Chicken Balls",
+            "en": "12-Piece Chicken Ball",
             "fa": "چیکن توپی ۱۲ عددی"
           },
-          "price": null,
+          "price": 490000,
           "tag": "new"
         },
         {
           "name": {
-            "en": "10 Onion Rings",
-            "fa": "پیاز حلقه‌ای ۱۰ عددی"
+            "en": "6 Onion crunch",
+            "fa": "پیاز حلقه‌ای ۶ عددی"
           },
-          "price": null,
+          "price": 195000,
           "tag": "new"
         },
         {
@@ -743,15 +743,15 @@
             "en": "Greek Garlic Bread",
             "fa": "نان سیر یونانی"
           },
-          "price": null,
+          "price": 270000,
           "tag": "new"
         },
         {
           "name": {
-            "en": "Special Potatoes",
+            "en": "Golden crush",
             "fa": "سیب‌زمینی مخصوص"
           },
-          "price": null,
+          "price": 290000,
           "tag": "new"
         },
         {
@@ -759,7 +759,7 @@
             "en": "Grilled Caesar Salad",
             "fa": "سالاد سزار گریل"
           },
-          "price": null,
+          "price": 300000,
           "tag": "new"
         }
       ]
